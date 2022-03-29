@@ -11,3 +11,9 @@ class Point:
     '''
     x_pos: int
     y_pos: int
+
+    def copy(self):
+        '''
+        Description: Returns a COPY of a Point instance.
+        '''
+        return Point(self.x_pos, self.y_pos)

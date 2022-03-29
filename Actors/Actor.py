@@ -1,4 +1,4 @@
-from Structs.Window import Window
+from Structs import Window
 
 class Actor:
     '''

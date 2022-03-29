@@ -16,6 +16,8 @@ class Window:
     caption: str
     fps_cap: int
 
-    
-    def pr_window_setup(self):
-        return self.width, self.height, self.fps_cap, self.caption
+    def copy(self):
+        '''
+        Description: Returns a COPY of a Window instance.
+        '''
+        return Window(self.width, self.height, self.caption, self.fps_cap)

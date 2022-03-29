@@ -1,5 +1,5 @@
 from Actors.Actor import Actor
-from Structs.Window import Window
+from Structs import Dimensions, Point, Window
 import pyray as pr
 
 class Paddle(Actor):
@@ -13,10 +13,13 @@ class Paddle(Actor):
     - texture (pr.Texture): The texture of the paddle
     '''
 
-    def __init__(self, window: Window, texture: pr.Texture, paddle_side: str):
+    def __init__(self, window: Window, dimensions: Dimensions, color: pr.Color, paddle_side: str):
         super().__init__(window)
-        self.texture = texture
-        self.paddle_side = paddle_side.lower()
+        self.dimensions = dimensions
+        self.color = color
+        self._width = dimensions.width
+        self._height = dimensions.height
+        self._paddle_side = paddle_side.lower()
         self.set_start_position()
 
     def update_position(self, y_pos: int):
@@ -26,26 +29,48 @@ class Paddle(Actor):
         Args:
         y_pos (int): y position update     
         '''
-        self.position_y += y_pos
+        self._position.y_pos += y_pos
 
     def set_start_position(self):
         '''
         Description: Sets the start position of the paddle.
         '''
-        if self.paddle_side == 'left':
-            self.position_x = self.window.width // 8
+        if self._paddle_side == 'left':
+            position_x = self.window.width // 8
 
-        if self.paddle_side == 'right':
-            self.position_x = self.window.width // 8 * 7
+        if self._paddle_side == 'right':
+            position_x = self.window.width // 8 * 7
 
-        self.position_y = self.window.height // 2 - self.texture.width // 2
+        position_y = self.window.height // 2 - self._width // 2
+
+        self._position = Point(position_x, position_y)
+
+    def reset(self):
+        '''
+        Description: Resets the Paddle instances position.
+        '''
+        self.set_start_position()
 
     def draw(self):
         '''
         Description: Draws the paddle onto the screen.
         '''
-        pr.draw_texture_rec(
-            self.texture,
-            pr.Rectangle(0,0, float(self.texture.width), float(self.texture.height)),
-            pr.Vector2(self.position_x, self.position_y),
-            pr.WHITE)
+        pr.draw_rectangle(self._position.x_pos, self._position.y_pos, self._width, self._height, self.color)
+    
+    def get_width(self):
+        '''
+        Description: Gets Paddle instance width.
+        '''
+        return self._width
+
+    def get_height(self):
+        '''
+        Description: Gets Paddle instance height.
+        '''
+        return self._height
+
+    def get_position(self):
+        '''
+        Description: Gets Paddle instance position.
+        '''
+        return self._position
