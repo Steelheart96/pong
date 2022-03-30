@@ -77,6 +77,12 @@ class Ball(Actor):
         '''
         return self._position.y_pos
 
+    def get_pos_x(self):
+        '''
+        Description: Gets Ball instances x position.
+        '''
+        return self._position.x_pos
+
     def get_radius(self):
         '''
         Description: Gets Bal instances radius.

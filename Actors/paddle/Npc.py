@@ -20,21 +20,23 @@ class npc(Paddle):
     def __init__(self, window: Window, dimensions: Dimensions, color: pr.Color, paddle_side: str, ball: Ball, top_wall_height: int, bottom_wall_height: int):
         super().__init__(window, dimensions, color, paddle_side)
         self.ball = ball
-        self._top_wall_height = top_wall_height
-        self._bottom_wall_height = bottom_wall_height
+        self.top_wall_height = top_wall_height
+        self.bottom_wall_height = bottom_wall_height
 
-    def locate_ball_y(self):
+    def get_y_position(self):
         '''
         Description: Locates Ball actor's y position.
         '''
         return self.ball.get_pos_y()
 
-    def set_location(self):
+    def update_position(self, y_pos: int):
         '''
         Description: Sets Paddle y location to ball y location.
+
+        Args:
+        y_pos (int): y position update  
         '''
+        self._new_pos_y = y_pos - (self._height // 2)
 
-        self._new_pos_y = self.locate_ball_y() - (self._height // 2)
-
-        if self._top_wall_height < self._new_pos_y < self.window.height - self._bottom_wall_height - self._height:
+        if self.top_wall_height < self._new_pos_y < self.window.height - self.bottom_wall_height - self._height:
             self._position.y_pos = self._new_pos_y

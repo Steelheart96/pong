@@ -1,3 +1,4 @@
+from typing import Any
 from Actors.Actor import Actor
 from Structs import Dimensions, Point, Window
 import pyray as pr
@@ -21,15 +22,6 @@ class Paddle(Actor):
         self._height = dimensions.height
         self._paddle_side = paddle_side.lower()
         self.set_start_position()
-
-    def update_position(self, y_pos: int):
-        '''
-        Description: Paddle update coordinate function.
-
-        Args:
-        y_pos (int): y position update     
-        '''
-        self._position.y_pos += y_pos
 
     def set_start_position(self):
         '''
