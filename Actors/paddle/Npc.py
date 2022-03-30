@@ -13,15 +13,13 @@ class npc(Paddle):
     - color (pr.Color): Color of Paddle
     - paddle_side (str): The side at which the paddle is created ('left' / 'right')
     - ball (Ball): The ball Actor currently on screen
-    - top_wall_height (int): The top window Wall height
-    - bottom_wall_height (int): The bottom window Wall height
+    - top_bottom_wall_height (int): The top window Wall height
     '''
 
-    def __init__(self, window: Window, dimensions: Dimensions, color: pr.Color, paddle_side: str, ball: Ball, top_wall_height: int, bottom_wall_height: int):
+    def __init__(self, window: Window, dimensions: Dimensions, color: pr.Color, paddle_side: str, ball: Ball, top_bottom_wall_height: int):
         super().__init__(window, dimensions, color, paddle_side)
         self.ball = ball
-        self.top_wall_height = top_wall_height
-        self.bottom_wall_height = bottom_wall_height
+        self.top_bottom_wall_height = top_bottom_wall_height
 
     def get_y_position(self):
         '''
@@ -38,5 +36,5 @@ class npc(Paddle):
         '''
         self._new_pos_y = y_pos - (self._height // 2)
 
-        if self.top_wall_height < self._new_pos_y < self.window.height - self.bottom_wall_height - self._height:
+        if self.top_bottom_wall_height < self._new_pos_y < self.window.height - self.top_bottom_wall_height - self._height:
             self._position.y_pos = self._new_pos_y

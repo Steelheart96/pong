@@ -6,8 +6,7 @@ class Input:
 
     Args:
     - player_keys (dict): The keyboard inputs that the program will look for as well as the response to those inputs.
-    - top_wall_height (int): The top window Wall height
-    - bottom_wall_height (int): The bottom window Wall height
+    - top_bottom_wall_height (int): The top and bottom window Wall height
     - window_height (int): The height of the program window
     '''
 
@@ -15,10 +14,9 @@ class Input:
     Max_player_speed = 20
     Player_speed_update_amount = 1
 
-    def __init__(self, player_keys: dict, top_wall_height: int, bottom_wall_height: int, window_height: int) -> None:
+    def __init__(self, player_keys: dict, top_bottom_wall_height: int, window_height: int) -> None:
         self._player_keys = player_keys
-        self.top_wall_height = top_wall_height
-        self.bottom_wall_height = bottom_wall_height
+        self.top_bottom_wall_height = top_bottom_wall_height
         self.window_height = window_height
         self.player_movement_speed = Input.Default_player_speed
 
@@ -35,7 +33,7 @@ class Input:
             if pr.is_key_down(button_key):
                 y_pos += number_value(0, self.player_movement_speed)
 
-        if self.top_wall_height < player_y_pos + y_pos < self.window_height - self.bottom_wall_height - player_height:
+        if self.top_bottom_wall_height < player_y_pos + y_pos < self.window_height - self.top_bottom_wall_height - player_height:
             return y_pos
         else:
             return int(0)

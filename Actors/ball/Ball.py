@@ -55,12 +55,12 @@ class Ball(Actor):
         '''
         pr.draw_circle(self._position.x_pos, self._position.y_pos, self._radius, self.color)
 
-    def check_collision(self, paddle):
+    def check_collision(self, object):
         '''
         Description: Checks for a collision with the player or the npc.
 
         Args:
-        - paddle (npc or Player): Either the Player instance or npc instance
+        - object: Object that is collision checked
 
         Returns:
         - bool: True - Ball has collided | False - Ball has not collided
@@ -68,7 +68,7 @@ class Ball(Actor):
         return pr.check_collision_circle_rec(
             pr.Vector2(self._position.x_pos, self._position.y_pos),
             self._radius,
-            pr.Rectangle(paddle.get_position().x_pos, paddle.get_position().y_pos, paddle.get_width(), paddle.get_height())
+            pr.Rectangle(object.get_position().x_pos, object.get_position().y_pos, object.get_width(), object.get_height())
         )
     
     def get_pos_y(self):
