@@ -1,4 +1,6 @@
 from Structs import Window
+from Director.Credits import Credits
+from Director.Menu import Menu
 from Director.GamePlay import GamePlay
 import pyray as pr
 
@@ -15,7 +17,12 @@ class Director:
         self.window = window
         self.player_keys = player_keys
         self.initialize_window()
-        self.gameplay = GamePlay(window, player_keys)
+        self.credits = Credits(window, self)
+        self.menu = Menu(window, self)
+        self.gameplay = GamePlay(window, player_keys, self)
+        self.playing_menu = True
+        self.playing_credits = False
+        self.playing_game = False
 
     def initialize_window(self):
         '''
@@ -28,7 +35,16 @@ class Director:
         '''
         Description: Runs the program loop.
         '''
-        self.gameplay.run()
+        run = True
+        while run:
+            if self.playing_menu:
+                run = self.menu.run()
+
+            if self.playing_game:
+                run = self.gameplay.run()
+            
+            if self.playing_credits:
+                run = self.credits.run()
         
     def close(self):
         '''

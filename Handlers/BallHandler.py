@@ -1,5 +1,6 @@
 from Handlers.Handler import Handler
 from Movement.Input import Input
+from StaticObjects.Wall import Wall
 
 class BallHandler(Handler):
     '''
@@ -17,20 +18,30 @@ class BallHandler(Handler):
         self.visible_walls = visible_walls
         self.goal_walls = goal_walls
 
-    def visible_object_collided(self, direction: str):
+    def update(self):
+        '''
+        Description: Updates Ball instance positions
+        '''
+        for ball in self._objects:
+            ball.update_position()
+
+    def visible_object_collided(self, direction: str, velocity_update: bool = True):
         '''
         Description: Checks for collisions with visible objects.
 
         Args:
         - Direction (str): The object the ball collided with ('paddle' | 'wall')
+        - velocity_update (bool): Whether or not the ball instance velocities get updated
         '''
         for ball in self._objects:
             if direction.lower() == "paddle":
                 ball.flip_x_velocity()
-                ball.update_velocity_x()
+                if velocity_update:
+                    ball.update_velocity_x()
             else:
                 ball.flip_y_velocity()
-                ball.update_velocity_y()
+                if velocity_update:
+                    ball.update_velocity_y()
 
     def paddle_collision_check(self):
         '''

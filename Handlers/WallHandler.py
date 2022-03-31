@@ -1,7 +1,7 @@
 from typing import Any
 from Handlers.Handler import Handler
 
-class WallHander(Handler):
+class WallHandler(Handler):
     '''
     Description: Class that manages all wall instances.
     '''

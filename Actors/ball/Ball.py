@@ -11,17 +11,18 @@ class Ball(Actor):
     - window (Window): The programs information about the Window
     - radius (int): The radius of the ball
     - color (pr.Color): The color of the ball
+    - menu_displaying (bool): Whether or not the menu is displaying
     '''
 
     x_velocity_update_amount = 1
     y_velocity_update_amount = 1
 
-    def __init__(self, window: Window, radius: int, color: pr.Color):
+    def __init__(self, window: Window, radius: int, color: pr.Color, menu_displaying: bool = False):
         super().__init__(window)
         self._radius = radius
         self.color = color
         self.set_start_position()
-        self.randomize_velocity()
+        self.randomize_velocity(menu_displaying)
 
     def update_position(self):
         '''
@@ -40,14 +41,21 @@ class Ball(Actor):
         '''
         self._position = Point(self.window.width // 2, self.window.height // 2)
 
-    def randomize_velocity(self):
+    def randomize_velocity(self, menu_displaying: bool):
         '''
         Description: Sets the velocity for the Ball instance at the start of the game.
+
+        Args:
+        - menu_displaying (bool): Whether or not the menu is displaying
         '''
         self._velocity_x = choice([3, -3])
         self._velocity_y = 0
-        while self._velocity_y == 0:
-            self._velocity_y = randint(-3, 3)
+        if not menu_displaying:
+            while self._velocity_y == 0:
+                self._velocity_y = randint(-3, 3)
+        else:
+            while -1 < self._velocity_y < 1:
+                self._velocity_y = randint(-3, 3)
 
     def draw(self):
         '''
@@ -140,5 +148,5 @@ class Ball(Actor):
         Description: Resets Ball instance position and velocity. Resets Ball velocity.
         '''
         self.set_start_position()
-        self.randomize_velocity()
+        self.randomize_velocity(menu_displaying = False)
         self.reset_velocity()

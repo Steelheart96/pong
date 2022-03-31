@@ -5,12 +5,6 @@ import pyray as pr
 
 WINDOW = Window(width = 900, height = 600, caption = 'Impossible Pong', fps_cap = 60)
 
-# Use W and S key for movement
-PLAYER_KEYS_WORDS = {
-        pr.KEY_W: sub,
-        pr.KEY_S: add
-        }
-
 # Use Up and Down arrows for movement
 PLAYER_KEYS_ARROWS = {
         pr.KEY_UP: sub,
@@ -20,7 +14,7 @@ PLAYER_KEYS_ARROWS = {
 
 def main():
 
-    game = Director(WINDOW, PLAYER_KEYS_WORDS)
+    game = Director(WINDOW, PLAYER_KEYS_ARROWS)
 
     game.run()
     game.close()
